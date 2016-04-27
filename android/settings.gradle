@@ -1,0 +1,3 @@
+rootProject.name = 'spotify_discover_artists'
+
+include ':app'
