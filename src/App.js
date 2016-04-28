@@ -1,10 +1,10 @@
 'use strict'
 
 import React from 'react-native'
-import Home from './Views/Home'
+import HomeView from './views/Home'
 
 export default class App extends React.Component {
   render() {
-    return <Home />
+    return <HomeView />
   }
 }
