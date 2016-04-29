@@ -40,8 +40,6 @@ class SpotifyConnect {
         body: body,
     };
 
-    // console.log('fetchOptions', fetchOptions)
-
     fetch(urls.token, fetchOptions)
       .then((response) => response.text())
       .then((responseText) => {

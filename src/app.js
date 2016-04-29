@@ -2,7 +2,7 @@
 
 import React from 'react-native'
 import Navigator from './nav/Navigator'
-import Config from '../config.dev'
+import Config from '../config'
 
 import SpotifyConnect from './lib/SpotifyConnect'
 SpotifyConnect.setRedirectURI(Config.spotify.redirectUri)
