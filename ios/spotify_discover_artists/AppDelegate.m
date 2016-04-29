@@ -11,6 +11,11 @@
 
 #import "RCTRootView.h"
 
+// React Native Linking !
+// from https://facebook.github.io/react-native/docs/linking.html
+#import "RCTLinkingManager.h"
+
+
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -55,5 +60,16 @@
   [self.window makeKeyAndVisible];
   return YES;
 }
+
+
+// React Native Linking !
+// from https://facebook.github.io/react-native/docs/linking.html
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url
+sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+  return [RCTLinkingManager application:application openURL:url
+                      sourceApplication:sourceApplication annotation:annotation];
+}
+
 
 @end

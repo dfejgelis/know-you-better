@@ -7,9 +7,10 @@
     "eslint": "./node_modules/.bin/eslint ./ --"
   },
   "dependencies": {
+    "buffer": "^4.6.0",
     "react": "^0.14.8",
     "react-native": "^0.24.1",
-    "spotify-web-api-node": "^2.3.0"
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "eslint": "^2.8.0",
