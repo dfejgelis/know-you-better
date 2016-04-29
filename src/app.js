@@ -2,13 +2,16 @@
 
 import React from 'react-native'
 import Navigator from './nav/Navigator'
+import Config from '../config'
 
-const initialRoute = { id: 'home', title: "Discover App1" }
+import SpotifyConnect from './lib/SpotifyConnect'
+SpotifyConnect.setRedirectURI(Config.spotify.redirectUri)
+SpotifyConnect.setCredentials(Config.spotify.clientId, Config.spotify.clientSecret)
 
 class App extends React.Component {
   render() {
     return (
-      <Navigator initialRoute={initialRoute} />
+      <Navigator initialRoute={Config.initialRoute} />
     )
   }
 }

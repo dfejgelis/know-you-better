@@ -1,0 +1,5 @@
+{
+  "name": "LoginSpotify",
+  "private": true,
+  "main": "./LoginSpotify.js"
+}

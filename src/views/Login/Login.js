@@ -4,9 +4,20 @@ import React from 'react-native'
 
 
 export default class Login extends React.Component {
+  _onPressSpotifyLogin() {
+    this.props.navigator.push({
+      id: 'loginSpotify',
+      title: 'Request Spotify Permission'
+    })
+  }
+
   render() {
     return (
-      <React.Text style={{fontSize: 30, flex:1}}>Mono!!!</React.Text>
+      <React.View>
+        <React.TouchableHighlight onPress={this._onPressSpotifyLogin.bind(this)}>
+          <React.Text>Click here to login with Spotify</React.Text>
+        </React.TouchableHighlight>
+      </React.View>
     )
   }
 }
