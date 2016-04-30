@@ -5,14 +5,15 @@ import React, {
   View,
   TouchableHighlight,
 } from 'react-native';
+import ViewBase from '../ViewBase'
 
 import styles from './HomeStyles'
 
-class Home extends React.Component {
+export default class Home extends ViewBase {
   _AuthWithSpotify() {
     this.props.navigator.push({
       id: 'login',
-      title: 'Login in first'
+      title: 'Login in first',
     })
   }
 
@@ -33,8 +34,3 @@ class Home extends React.Component {
     );
   }
 }
-
-Home.propTypes = {
-  navigator: React.PropTypes.object.isRequired,
-}
-export default Home

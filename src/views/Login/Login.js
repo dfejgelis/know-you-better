@@ -1,9 +1,10 @@
 'use strict'
 
 import React from 'react-native'
+import ViewBase from '../ViewBase'
 
 
-export default class Login extends React.Component {
+export default class Home extends ViewBase {
   _onPressSpotifyLogin() {
     this.props.navigator.push({
       id: 'loginSpotify',
