@@ -3,6 +3,7 @@ import { Buffer } from 'buffer'
 const urls = {
   authorize: 'https://accounts.spotify.com/authorize',
   token: 'https://accounts.spotify.com/api/token',
+  topArtists: 'https://api.spotify.com/v1/me/top/artists',
 }
 
 
@@ -24,7 +25,7 @@ class SpotifyConnect {
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     }
     const params = {
-      grant_type : 'client_credentials',
+      grant_type : 'authorization_code',
       redirect_uri: this.redirectURI,
       code: authToken,
     };
@@ -34,7 +35,7 @@ class SpotifyConnect {
     }
     const body = str.join('&');
 
-    var fetchOptions = {
+    const fetchOptions = {
         method: 'POST',
         headers: headers,
         body: body,
@@ -50,6 +51,19 @@ class SpotifyConnect {
       .catch((error) => {
         console.warn(error);
       })
+  }
+
+  _getAccessTokenHeader() {
+    return {
+      Authorization: `Bearer ${this.token.access_token}`,
+    }
+  }
+
+  fetchTopArtists() {
+    return fetch(urls.topArtists, {
+      method: 'GET',
+      headers: this._getAccessTokenHeader(),
+    })
   }
 
   getAuthURL(scope) {

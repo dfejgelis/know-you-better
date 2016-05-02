@@ -10,7 +10,7 @@ export default class Home extends ViewBase {
   _onPressSpotifyLogin() {
     this.props.navigator.push({
       id: 'loginSpotify',
-      title: 'Request Spotify Permission'
+      title: 'Request Spotify Permission',
     })
   }
 
