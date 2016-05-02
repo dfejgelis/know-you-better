@@ -7,6 +7,7 @@
     "eslint": "./node_modules/.bin/eslint ./ --"
   },
   "dependencies": {
+    "alt": "^0.18.4",
     "buffer": "^4.6.0",
     "react": "^0.14.8",
     "react-native": "^0.24.1",

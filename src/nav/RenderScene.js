@@ -2,14 +2,14 @@
 
 import React from 'react-native'
 import HomeView from '../views/Home'
-import LoginView from '../views/Login'
+import WelcomeView from '../views/Welcome'
 import LoginSpotifyView from '../views/LoginSpotify'
 
 
 export default function renderScene(route, navigator) {
     switch (route.id) {
-      case 'login':
-        return (<LoginView navigator={navigator} {...route.data} />)
+      case 'welcome':
+        return (<WelcomeView navigator={navigator} {...route.data} />)
       case 'loginSpotify':
         return (<LoginSpotifyView navigator={navigator} {...route.data} />)
       case 'home':

@@ -1,0 +1,5 @@
+{
+  "name": "Welcome",
+  "private": true,
+  "main": "./Welcome.js"
+}
