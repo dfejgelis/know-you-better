@@ -15,7 +15,8 @@
   "rules": {
     "comma-dangle": [1, "always-multiline"],
     "no-console": 0,
-    "semi": [1, "never"]
+    "semi": [1, "never"],
+    "no-var": 1
   },
   "globals": {
     "console": false,
