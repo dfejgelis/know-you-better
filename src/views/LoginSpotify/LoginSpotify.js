@@ -17,7 +17,7 @@ export default class Login extends React.Component {
   _LoginSpotifySuccess() {
     this.props.navigator.replace({
       id: 'home',
-      title: 'Welcome!'
+      title: 'Welcome!',
     })
   }
   onNavigationStateChange(navState) {

@@ -1,1 +1,2 @@
-require('react-native-mock/mock'); // <-- side-effects!!!
+// side-effects!!!
+require('react-native-mock/mock')

@@ -8,8 +8,8 @@ import React, {
   Component,
   StyleSheet,
   Text,
-  View
-} from 'react-native';
+  View,
+} from 'react-native'
 
 class spotify_discover_artists extends Component {
   render() {
@@ -25,7 +25,7 @@ class spotify_discover_artists extends Component {
           Shake or press menu button for dev menu
         </Text>
       </View>
-    );
+    )
   }
 }
 
@@ -46,6 +46,6 @@ const styles = StyleSheet.create({
     color: '#333333',
     marginBottom: 5,
   },
-});
+})
 
-AppRegistry.registerComponent('spotify_discover_artists', () => spotify_discover_artists);
+AppRegistry.registerComponent('spotify_discover_artists', () => spotify_discover_artists)

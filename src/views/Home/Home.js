@@ -3,7 +3,6 @@
 import React, {
   Text,
   View,
-  TouchableHighlight,
 } from 'react-native'
 import ViewBase from '../ViewBase'
 
@@ -35,11 +34,11 @@ export default class Home extends ViewBase {
 
   componentDidMount() {
     this._fetchArtists()
-    SpotifyStore.listen(this.onChange.bind(this));
+    SpotifyStore.listen(this.onChange.bind(this))
   }
 
   componentWillUnmount() {
-    SpotifyStore.unlisten(this.onChange);
+    SpotifyStore.unlisten(this.onChange)
   }
 
   onChange() {

@@ -31,4 +31,4 @@ export default StyleSheet.create({
     color: 'white',
     marginBottom: 5,
   },
-});
+})

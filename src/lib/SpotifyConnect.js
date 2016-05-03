@@ -23,24 +23,24 @@ class SpotifyConnect {
   getAccessToken(authToken) {
     const headers = {
       Authorization: 'Basic ' + new Buffer(this.clientId + ':' + this.clientSecret).toString('base64'),
-      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+      'Content-Type': 'application/x-www-form-urlencoded charset=UTF-8',
     }
     const params = {
       grant_type : 'authorization_code',
       redirect_uri: this.redirectURI,
       code: authToken,
-    };
-    const str = [];
-    for (let val in params) {
-      str.push(encodeURIComponent(val) + '=' + encodeURIComponent(params[val]));
     }
-    const body = str.join('&');
+    const str = []
+    for (let val in params) {
+      str.push(encodeURIComponent(val) + '=' + encodeURIComponent(params[val]))
+    }
+    const body = str.join('&')
 
     const fetchOptions = {
         method: 'POST',
         headers: headers,
         body: body,
-    };
+    }
 
     return this._fetch(urls.token, fetchOptions)
       .then((data) => {
@@ -95,9 +95,9 @@ class SpotifyConnect {
       scope: scope,
       state: 'authenticate',
     }
-    const qs = [];
+    const qs = []
     for (let val in params) {
-      qs.push(val + '=' + encodeURIComponent(params[val]));
+      qs.push(val + '=' + encodeURIComponent(params[val]))
     }
     return `${urls.authorize}?${qs.join('&')}`
   }

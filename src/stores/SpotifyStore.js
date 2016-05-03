@@ -10,8 +10,8 @@ SpotifyConnect.setAccessData({access_token: accessToken})
 
 class SpotifyStore {
   constructor() {
-    this.artists, this.relatedArtists = [], [];
-    this.errorMessage = null;
+    this.artists, this.relatedArtists = [], []
+    this.errorMessage = null
 
     this.bindActions(SpotifyActions)
   }
@@ -56,7 +56,7 @@ class SpotifyStore {
       //     // Iterate artists for each related
       //     result.artists.forEach((artist) => {
       //       // console.log('each artist in related', artist)
-      //       relatedArtists[artist.id] = ++relatedArtists[artist.id] || 1;
+      //       relatedArtists[artist.id] = ++relatedArtists[artist.id] || 1
       //     })
       //   })
       //   console.log('donePromises', relatedArtists)
@@ -91,4 +91,4 @@ class SpotifyStore {
 
 }
 
-export default alt.createStore(SpotifyStore);
+export default alt.createStore(SpotifyStore)

@@ -5,14 +5,14 @@ import React, {
 
 
 const NavigationBarRouteMapper = {
-  LeftButton(route, navigator, index, navState) {
+  LeftButton(route, navigator, index) {
     if (index === 0) {
-      return null;
+      return null
     } else {
       return (
         <TouchableHighlight onPress={() => {
           if (index > 0) {
-            navigator.pop();
+            navigator.pop()
           }
         }} style={styles.navButtonLeft}>
          <Text style={styles.navBarText}>Back</Text>
@@ -27,7 +27,7 @@ const NavigationBarRouteMapper = {
     </Text>
   },
 
-  Title(route, navigator, index, navState) {
+  Title(route) {
     return (
       <Text style={styles.navBarTitleText}>
         {(route.title) ? route.title : "Discover App"}
@@ -57,7 +57,7 @@ const styles = React.StyleSheet.create({
     marginTop: 10,
     marginLeft: 10,
   },
-});
+})
 
 
 export default NavigationBarRouteMapper
