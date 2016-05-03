@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "eslint": "./node_modules/.bin/eslint ./ --"
+    "eslint": "./node_modules/.bin/eslint ./ --",
+    "test": "mocha --require babel-core/register ",
+    "test:watch": "npm run test -- --watch"
   },
   "dependencies": {
     "alt": "^0.18.4",
@@ -16,6 +18,8 @@
   "devDependencies": {
     "eslint": "^2.8.0",
     "eslint-plugin-react": "^5.0.1",
-    "eslint-plugin-react-native": "^1.0.0"
+    "eslint-plugin-react-native": "^1.0.0",
+    "react": "^0.14.8",
+    "react-native-mock": "0.0.7"
   }
 }
