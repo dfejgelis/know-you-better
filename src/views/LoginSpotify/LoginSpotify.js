@@ -14,7 +14,7 @@ export default class Login extends React.Component {
       loading: false,
     }
   }
-  accessTokenCallback() {
+  _LoginSpotifySuccess() {
     this.props.navigator.replace({
       id: 'home',
       title: 'Welcome!'
@@ -31,7 +31,7 @@ export default class Login extends React.Component {
       if (urlObject.query.code) {
         this.setState({ loading: true })
         SpotifyConnect.getAccessToken(urlObject.query.code)
-          .then((data) => this.accessTokenCallback(data))
+          .then((data) => this._LoginSpotifySuccess(data))
           .catch((error) => console.warn(error))
       }
     }
