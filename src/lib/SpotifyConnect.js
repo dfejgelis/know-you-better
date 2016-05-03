@@ -3,7 +3,8 @@ import { Buffer } from 'buffer'
 const urls = {
   authorize: 'https://accounts.spotify.com/authorize',
   token: 'https://accounts.spotify.com/api/token',
-  topArtists: 'https://api.spotify.com/v1/me/top/artists',
+  artistsTop: 'https://api.spotify.com/v1/me/top/artists',
+  artistsRelated: 'https://api.spotify.com/v1/artists/{id}/related-artists',
 }
 
 
@@ -71,6 +72,19 @@ class SpotifyConnect {
       method: 'GET',
       headers: this._getAccessTokenHeader(),
     })
+  }
+
+  discovertArtists(artistsIds) {
+    const promises = []
+    for (const artistId of artistsIds) {
+      const url = urls.artistsRelated.replace('{id}', artistId)
+      const promise = this._fetch(url, {
+        method: 'GET',
+        headers: this._getAccessTokenHeader(),
+      })
+      promises.push(promise)
+    }
+    return promises
   }
 
   getAuthURL(scope) {

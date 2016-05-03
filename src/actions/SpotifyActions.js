@@ -5,8 +5,11 @@ class SpotifyActions {
     this.generateActions(
       'fetchTopArtists',
       'fetchTopArtistsSuccess',
-      'fetchTopArtistsFailed'
-    );
+      'fetchTopArtistsFailed',
+      'discoverArtists',
+      'discoverArtistsSuccess',
+      'discoverArtistsFailed'
+    )
   }
 }
 
