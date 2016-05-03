@@ -19,7 +19,7 @@ class SpotifyConnect {
     this.token = options
   }
 
-  getAccessToken(authToken, callback) {
+  getAccessToken(authToken) {
     const headers = {
       Authorization: 'Basic ' + new Buffer(this.clientId + ':' + this.clientSecret).toString('base64'),
       'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -41,15 +41,11 @@ class SpotifyConnect {
         body: body,
     };
 
-    fetch(urls.token, fetchOptions)
-      .then((response) => response.text())
-      .then((responseText) => {
-        const responseData = JSON.parse(responseText)
-        this.setAccessData(responseData)
-        callback(responseData)
-      })
-      .catch((error) => {
-        console.warn(error);
+    return this._fetch(urls.token, fetchOptions)
+      .then((data) => {
+        this.setAccessData(data)
+        console.debug('accessToken', data)
+        return data
       })
   }
 
@@ -59,8 +55,19 @@ class SpotifyConnect {
     }
   }
 
+  _fetch(url, options) {
+    return fetch(url, options)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Couldn't fetch top artists`)
+        }
+        return response.text()
+      })
+      .then((responseText) => JSON.parse(responseText))
+  }
+
   fetchTopArtists() {
-    return fetch(urls.topArtists, {
+    return this._fetch(urls.artistsTop, {
       method: 'GET',
       headers: this._getAccessTokenHeader(),
     })
