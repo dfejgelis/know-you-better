@@ -8,7 +8,10 @@ class SpotifyActions {
       'fetchTopArtistsFailed',
       'discoverArtists',
       'discoverArtistsSuccess',
-      'discoverArtistsFailed'
+      'discoverArtistsFailed',
+      'fetchTopTracks',
+      'fetchTopTracksSuccess',
+      'fetchTopTracksFailed'
     )
   }
 }

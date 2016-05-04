@@ -1,0 +1,5 @@
+{
+  "name": "TrackList",
+  "private": true,
+  "main": "./TrackList.js"
+}

@@ -6,6 +6,7 @@ const urls = {
   artistsTop: 'https://api.spotify.com/v1/me/top/artists',
   artist: 'https://api.spotify.com/v1/artists/{id}',
   artistsRelated: 'https://api.spotify.com/v1/artists/{id}/related-artists',
+  artistsTopTracks: 'https://api.spotify.com/v1/artists/{id}/top-tracks',
 }
 
 
@@ -91,6 +92,14 @@ class SpotifyConnect {
 
   fetchArtistInformation(artistsId) {
     const url = urls.artist.replace('{id}', artistsId)
+    return this._fetch(url, {
+      method: 'GET',
+      headers: this._getAccessTokenHeader(),
+    })
+  }
+
+  fetchArtistTopTracks(artistId, country) {
+    const url = urls.artistsTopTracks.replace('{id}', artistId) + `?country=${country}`
     return this._fetch(url, {
       method: 'GET',
       headers: this._getAccessTokenHeader(),

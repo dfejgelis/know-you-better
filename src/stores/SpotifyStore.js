@@ -1,8 +1,8 @@
 import alt from '../alt'
 
 import SpotifyActions from '../actions/SpotifyActions'
-// import SpotifySource from '../sources/SpotifySource'
 import SpotifyConnect from '../lib/SpotifyConnect'
+import config from '../../config'
 
 // TODO: Remove
 // const accessToken = 'BQBohXI2YpdQ0Gpsq3lNYutVgzCo17Ukb880gXIR2gBRdZ4x_-KxjzvH9yX06oXGe4L1REeg3IOIrDbtcrrKFH9SZOBm26qJdq8VBwHULtZZvFArg2UTGQ-trWop9jZryaYjCjWvh7On8Fy36ZSNcQnv4NiLr1hRmwCv_6waiBQszvKZcqLRJAoZbUiTg75QFaHRTuHwPQa42AXCAiB7fmGw3yRDlaVQ9U_2XuoW5LtNQ2ko5e9gSUEvuI-3xwALovDuE9rfeb4yLbxYJh7Enpgv2H8HqeUeiJosSHqeEiWPd0UPMb7QttCc'
@@ -12,6 +12,7 @@ class SpotifyStore {
   constructor() {
     this.artists, this.relatedArtists = [], []
     this.errorMessage = null
+    this.country = config.spotify.country,
 
     this.bindActions(SpotifyActions)
   }
@@ -98,12 +99,39 @@ class SpotifyStore {
     return promises
   }
 
-  discoverArtistsSuccess(artistsIds) {
-    // console.log('mono', data)
-    this.setState({ errorMessage: null, relatedArtists: artistsIds })
+  discoverArtistsSuccess(data) {
+    this.setState({ errorMessage: null, relatedArtists: data })
   }
 
   discoverArtistsFailed(error) {
+    this.setState({ errorMessage: error })
+  }
+
+  fetchTopTracks() {
+    const promises = []
+    this.relatedArtists.forEach((relatedArtist) => {
+      promises.push(SpotifyConnect.fetchArtistTopTracks(relatedArtist.id, this.country))
+    })
+    Promise.all(promises)
+      //
+      .then((data) => {
+        const topTracks = []
+        data.map((artistTopTracks) => {
+          artistTopTracks.tracks.slice(1, 3).map((topTrack) => topTracks.push(topTrack))
+        })
+        return topTracks
+      })
+      .then((data) => {
+        console.log('finished', JSON.stringify(data))
+        this.fetchTopTracksSuccess(data)
+      })
+  }
+
+  fetchTopTracksSuccess(data) {
+    this.setState({ errorMessage: null, topTracks: data })
+  }
+
+  fetchTopTracksFailed(error) {
     this.setState({ errorMessage: error })
   }
 

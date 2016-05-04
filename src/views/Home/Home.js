@@ -9,6 +9,7 @@ import styles from './HomeStyles'
 import SpotifyStore from '../../stores/SpotifyStore'
 import SpotifyActions from '../../actions/SpotifyActions'
 import ArtistList from '../../components/ArtistList'
+import TrackList from '../../components/TrackList'
 import Button from '../../components/Button'
 
 
@@ -18,12 +19,14 @@ export default class Home extends ViewBase {
     this.state = {
       artists: [],
       relatedArtists: [],
+      topTracks: [],
       errorMessage: null,
     }
   }
 
   _createPlaylist() {
     // Create playlist
+    SpotifyActions.fetchTopTracks()
     // Go check it out
     this.props.navigator.push({
       id: 'playlist',
@@ -46,6 +49,7 @@ export default class Home extends ViewBase {
       errorMessage: state.errorMessage,
       artists: state.artists,
       relatedArtists: state.relatedArtists,
+      topTracks: state.topTracks,
     })
   }
 
@@ -80,11 +84,17 @@ export default class Home extends ViewBase {
       <React.View style={styles.container}>
         <React.Text style={styles.title}>These are you top related artists</React.Text>
         <ArtistList
-            artists={this.state.relatedArtists}
-            onTapCreatePlaylist={this._createPlaylist.bind(this)}
-            />
+          artists={this.state.relatedArtists}
+          onTapCreatePlaylist={this._createPlaylist.bind(this)}
+          />
         <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
+        <TrackList tracks={this.state.topTracks}></TrackList>
       </React.View>
     )
   }
 }
+// 
+// {!this.state.topTracks
+//   ? <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
+//   : <TrackList tracks={this.state.topTracks}></TrackList>
+// }
