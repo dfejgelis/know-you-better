@@ -5,9 +5,10 @@ import url from 'url'
 import SpotifyConnect from '../../lib/SpotifyConnect'
 import styles from './LoginSpotifyStyles'
 import config from '../../../config'
+import ViewBase from '../ViewBase'
 
 
-export default class Login extends React.Component {
+export default class LoginSpotify extends ViewBase {
   constructor(props) {
     super(props)
     this.state = {
