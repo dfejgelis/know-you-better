@@ -23,7 +23,7 @@ class SpotifyConnect {
   getAccessToken(authToken) {
     const headers = {
       Authorization: 'Basic ' + new Buffer(this.clientId + ':' + this.clientSecret).toString('base64'),
-      'Content-Type': 'application/x-www-form-urlencoded charset=UTF-8',
+      'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
     }
     const params = {
       grant_type : 'authorization_code',
