@@ -9,6 +9,7 @@ import styles from './HomeStyles'
 import SpotifyStore from '../../stores/SpotifyStore'
 import SpotifyActions from '../../actions/SpotifyActions'
 import ArtistList from '../../components/ArtistList'
+import Button from '../../components/Button'
 
 
 export default class Home extends ViewBase {
@@ -81,12 +82,8 @@ export default class Home extends ViewBase {
         <ArtistList
             artists={this.state.relatedArtists}
             onTapCreatePlaylist={this._createPlaylist.bind(this)}
-        />
-        <React.TouchableHighlight
-            style={styles.createPlaylistButton}
-            onPress={this._discoverArtists.bind(this)}>
-          <React.Text style={styles.loginButtonText}>Create Playlist</React.Text>
-        </React.TouchableHighlight>
+            />
+        <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
       </React.View>
     )
   }
