@@ -78,15 +78,15 @@ export default class Home extends ViewBase {
       return this._renderLoader('Discovering new artists')
     }
     return (
-      <HomeScreen
-          artists={this.state.artists}
+      <ArtistList
+          artists={this.state.relatedArtists}
           onTapCreatePlaylist={this._createPlaylist.bind(this)}
       />
     )
   }
 }
 
-class HomeScreen extends React.Component {
+class ArtistList extends React.Component {
   constructor(props) {
     super(props)
     let ds = new React.ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
@@ -104,15 +104,17 @@ class HomeScreen extends React.Component {
 
   render() {
     return (
-      <React.ListView
-        contentContainerStyle={styles.list}
-        dataSource={this.state.artistsDataSource}
-        renderRow={this._renderArtist}
-      />
+      <React.View >
+        <React.ListView
+          contentContainerStyle={styles.list}
+          dataSource={this.state.artistsDataSource}
+          renderRow={this._renderArtist}
+          />
+      </React.View>
     )
   }
 }
-HomeScreen.propTypes = {
-  artists: React.PropTypes.arrayOf(ArtistModel.propType).isRequired,
+ArtistList.propTypes = {
+  artists: React.PropTypes.arrayOf(React.PropTypes.shape(ArtistModel.propTypes)).isRequired,
   onTapCreatePlaylist: React.PropTypes.func.isRequired,
 }

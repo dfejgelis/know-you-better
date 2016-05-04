@@ -4,6 +4,7 @@ const urls = {
   authorize: 'https://accounts.spotify.com/authorize',
   token: 'https://accounts.spotify.com/api/token',
   artistsTop: 'https://api.spotify.com/v1/me/top/artists',
+  artist: 'https://api.spotify.com/v1/artists/{id}',
   artistsRelated: 'https://api.spotify.com/v1/artists/{id}/related-artists',
 }
 
@@ -57,10 +58,11 @@ class SpotifyConnect {
   }
 
   _fetch(url, options) {
+    console.debug('Fetching url', url)
     return fetch(url, options)
       .then((response) => {
         if (!response.ok) {
-          throw new Error(`Couldn't fetch top artists`)
+          throw new Error(`Couldn't fetch url: ${url}`, response)
         }
         return response.text()
       })
@@ -85,6 +87,14 @@ class SpotifyConnect {
       promises.push(promise)
     }
     return promises
+  }
+
+  fetchArtistInformation(artistsId) {
+    const url = urls.artist.replace('{id}', artistsId)
+    return this._fetch(url, {
+      method: 'GET',
+      headers: this._getAccessTokenHeader(),
+    })
   }
 
   getAuthURL(scope) {

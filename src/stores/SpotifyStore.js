@@ -85,9 +85,15 @@ class SpotifyStore {
       })
       // Get TOP 5
       .then((relatedArtists) => relatedArtists.slice(0, 6))
-      .done((data) => {
-        this.discoverArtistsSuccess(data)
-        console.log('finished', data)
+      // Fetch TOP 5 artists information
+      .then((relatedArtists) => {
+        const promises = []
+        relatedArtists.forEach((relatedArtist) => promises.push(SpotifyConnect.fetchArtistInformation(relatedArtist[0])))
+        Promise.all(promises)
+          .then((data) => {
+            this.discoverArtistsSuccess(data)
+            console.log('finished', JSON.stringify(data))
+          })
       })
     return promises
   }
