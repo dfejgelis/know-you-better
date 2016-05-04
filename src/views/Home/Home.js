@@ -5,12 +5,10 @@ import React, {
   View,
 } from 'react-native'
 import ViewBase from '../ViewBase'
-
 import styles from './HomeStyles'
 import SpotifyStore from '../../stores/SpotifyStore'
 import SpotifyActions from '../../actions/SpotifyActions'
-import Artist from '../../components/Artist'
-import ArtistModel from '../../models/Artist'
+import ArtistList from '../../components/ArtistList'
 
 
 export default class Home extends ViewBase {
@@ -78,43 +76,18 @@ export default class Home extends ViewBase {
       return this._renderLoader('Discovering new artists')
     }
     return (
-      <ArtistList
-          artists={this.state.relatedArtists}
-          onTapCreatePlaylist={this._createPlaylist.bind(this)}
-      />
-    )
-  }
-}
-
-class ArtistList extends React.Component {
-  constructor(props) {
-    super(props)
-    let ds = new React.ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2})
-    this.state = {
-      artistsDataSource: ds.cloneWithRows(this.props.artists),
-    }
-  }
-  componentWillReceiveProps(props) {
-    this.setState({artistsDataSource: this.state.artistsDataSource.cloneWithRows(props.artists)})
-  }
-
-  _renderArtist(artist) {
-    return <Artist {...artist} />
-  }
-
-  render() {
-    return (
-      <React.View >
-        <React.ListView
-          contentContainerStyle={styles.list}
-          dataSource={this.state.artistsDataSource}
-          renderRow={this._renderArtist}
-          />
+      <React.View style={styles.container}>
+        <React.Text style={styles.title}>These are you top related artists</React.Text>
+        <ArtistList
+            artists={this.state.relatedArtists}
+            onTapCreatePlaylist={this._createPlaylist.bind(this)}
+        />
+        <React.TouchableHighlight
+            style={styles.createPlaylistButton}
+            onPress={this._discoverArtists.bind(this)}>
+          <React.Text style={styles.loginButtonText}>Create Playlist</React.Text>
+        </React.TouchableHighlight>
       </React.View>
     )
   }
-}
-ArtistList.propTypes = {
-  artists: React.PropTypes.arrayOf(React.PropTypes.shape(ArtistModel.propTypes)).isRequired,
-  onTapCreatePlaylist: React.PropTypes.func.isRequired,
 }
