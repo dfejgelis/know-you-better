@@ -4,9 +4,9 @@ import SpotifyActions from '../actions/SpotifyActions'
 // import SpotifySource from '../sources/SpotifySource'
 import SpotifyConnect from '../lib/SpotifyConnect'
 
-
-const accessToken = 'BQBohXI2YpdQ0Gpsq3lNYutVgzCo17Ukb880gXIR2gBRdZ4x_-KxjzvH9yX06oXGe4L1REeg3IOIrDbtcrrKFH9SZOBm26qJdq8VBwHULtZZvFArg2UTGQ-trWop9jZryaYjCjWvh7On8Fy36ZSNcQnv4NiLr1hRmwCv_6waiBQszvKZcqLRJAoZbUiTg75QFaHRTuHwPQa42AXCAiB7fmGw3yRDlaVQ9U_2XuoW5LtNQ2ko5e9gSUEvuI-3xwALovDuE9rfeb4yLbxYJh7Enpgv2H8HqeUeiJosSHqeEiWPd0UPMb7QttCc'
-SpotifyConnect.setAccessData({access_token: accessToken})
+// TODO: Remove
+// const accessToken = 'BQBohXI2YpdQ0Gpsq3lNYutVgzCo17Ukb880gXIR2gBRdZ4x_-KxjzvH9yX06oXGe4L1REeg3IOIrDbtcrrKFH9SZOBm26qJdq8VBwHULtZZvFArg2UTGQ-trWop9jZryaYjCjWvh7On8Fy36ZSNcQnv4NiLr1hRmwCv_6waiBQszvKZcqLRJAoZbUiTg75QFaHRTuHwPQa42AXCAiB7fmGw3yRDlaVQ9U_2XuoW5LtNQ2ko5e9gSUEvuI-3xwALovDuE9rfeb4yLbxYJh7Enpgv2H8HqeUeiJosSHqeEiWPd0UPMb7QttCc'
+// SpotifyConnect.setAccessData({access_token: accessToken})
 
 class SpotifyStore {
   constructor() {
@@ -34,55 +34,67 @@ class SpotifyStore {
 
   discoverArtists() {
     this.errorMessage = null
-    const promises = SpotifyConnect.discovertArtists(this.artists.slice(1, 3).map((artist) => artist.id))
+    const promises = SpotifyConnect.discovertArtists(
+      this.artists.map((artist) => artist.id)
+    )
     Promise.all(promises)
       .catch((error) => this.discoverArtistsFailed(error))
       // We have an array of 'artists' with information
-      .then((relatedResults) =>
-        relatedResults.map((relatedResult) =>
+      .then((relatedResults) => {
+        const a = relatedResults.map((relatedResult) =>
           relatedResult.artists.map((artist) => artist.id)
         )
-      )
+        return a
+      })
       // Now we have an array of arrays of ids
       .then((relatedResultsIds) => {
-        const results = []
-        return relatedResultsIds.forEach((arrayOfIds) => results.concat(arrayOfIds))
+        let artistsIds = []
+        relatedResultsIds.forEach((arrayOfIds) =>  {
+          artistsIds = artistsIds.concat(arrayOfIds)
+        })
+        return artistsIds
       })
-
-      // .then((relatedResults) => {
-      //   const relatedArtists = {}
-      //   // Iterate Each artist related results
-      //   relatedResults.forEach((result) =>  {
-      //     // Iterate artists for each related
-      //     result.artists.forEach((artist) => {
-      //       // console.log('each artist in related', artist)
-      //       relatedArtists[artist.id] = ++relatedArtists[artist.id] || 1
-      //     })
-      //   })
-      //   console.log('donePromises', relatedArtists)
-      //   return relatedArtists
-      // })
-      // .then((relatedArtists) => { // Sort
-      //   const sortable = []
-      //   for (const artist in relatedArtists) {
-      //     sortable.push([artist, relatedArtists[artist]])
-      //   }
-      //   // console.log(sortable)
-      //   sortable.sort(function(a, b) {
-      //     console.log(a, b)
-      //     return a[1] < b[1]}
-      //   )
-      //   return sortable
-      // })
+      // Now we have an arrays of ids
+      .then((artistsIds) => {
+        const relatedArtists = {}
+        // Iterate artists for each related
+        artistsIds.forEach((artistId) => {
+          // console.log('each artist in related', artist)
+          relatedArtists[artistId] = ++relatedArtists[artistId] || 1
+        })
+        // console.log('donePromises', relatedArtists)
+        return relatedArtists
+      })
+      // Delete relatedArtists that are my top
+      .then((relatedArtists) => {
+        const myArtistsIds = this.artists.map((artist) => artist.id)
+        myArtistsIds.forEach((id) => {
+          if (relatedArtists.hasOwnProperty(id)) {
+            delete relatedArtists[id]
+          }
+        })
+        return relatedArtists
+      })
+      // Sort (most related matches first)
+      .then((relatedArtistsWithCount) => {
+        let sortable = []
+        for (const artist in relatedArtistsWithCount) {
+          sortable.push([artist, relatedArtistsWithCount[artist]])
+        }
+        return sortable.sort((prev, next) => next[1] - prev[1])
+      })
+      // Get TOP 5
+      .then((relatedArtists) => relatedArtists.slice(0, 6))
       .done((data) => {
+        this.discoverArtistsSuccess(data)
         console.log('finished', data)
       })
     return promises
   }
 
-  discoverArtistsSuccess(data) {
+  discoverArtistsSuccess(artistsIds) {
     // console.log('mono', data)
-    this.setState({ errorMessage: null, relatedArtists: data })
+    this.setState({ errorMessage: null, relatedArtists: artistsIds })
   }
 
   discoverArtistsFailed(error) {
