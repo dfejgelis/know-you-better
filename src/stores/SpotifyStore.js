@@ -3,6 +3,8 @@ import alt from '../alt'
 import SpotifyActions from '../actions/SpotifyActions'
 import SpotifyConnect from '../lib/SpotifyConnect'
 import config from '../../config'
+import MockedArtists from '../../test/mocks/topArtists'
+import MockedRelatedArtists from '../../test/mocks/relatedArtists'
 
 // TODO: Remove
 // const accessToken = 'BQBohXI2YpdQ0Gpsq3lNYutVgzCo17Ukb880gXIR2gBRdZ4x_-KxjzvH9yX06oXGe4L1REeg3IOIrDbtcrrKFH9SZOBm26qJdq8VBwHULtZZvFArg2UTGQ-trWop9jZryaYjCjWvh7On8Fy36ZSNcQnv4NiLr1hRmwCv_6waiBQszvKZcqLRJAoZbUiTg75QFaHRTuHwPQa42AXCAiB7fmGw3yRDlaVQ9U_2XuoW5LtNQ2ko5e9gSUEvuI-3xwALovDuE9rfeb4yLbxYJh7Enpgv2H8HqeUeiJosSHqeEiWPd0UPMb7QttCc'
@@ -10,7 +12,10 @@ import config from '../../config'
 
 class SpotifyStore {
   constructor() {
-    this.artists, this.relatedArtists = [], []
+    this.artists, this.relatedArtists, this.topTracks = [], [], []
+    // TODO :: Remove
+    // this.artists = MockedArtists
+    // this.relatedArtists = MockedRelatedArtists
     this.errorMessage = null
     this.country = config.spotify.country,
 
