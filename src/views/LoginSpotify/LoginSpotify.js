@@ -7,6 +7,7 @@ import styles from './LoginSpotifyStyles'
 import config from '../../../config'
 import ViewBase from '../ViewBase'
 import Loader from '../../components/Loader'
+import SpotifyActions from '../../actions/SpotifyActions'
 
 
 export default class LoginSpotify extends ViewBase {
@@ -14,9 +15,11 @@ export default class LoginSpotify extends ViewBase {
     super(props)
     this.state = {
       loading: false,
+      loaded: false,
     }
   }
   _LoginSpotifySuccess() {
+    this.setState({ loaded: true })
     this.props.navigator.replace({
       id: 'artists',
       title: 'Artists',
@@ -33,7 +36,10 @@ export default class LoginSpotify extends ViewBase {
       if (urlObject.query.code) {
         this.setState({ loading: true })
         SpotifyConnect.getAccessToken(urlObject.query.code)
-          .then((data) => this._LoginSpotifySuccess(data))
+          .then((data) => {
+            this._LoginSpotifySuccess(data)
+            SpotifyActions.setCredentials(data.access_token)
+          })
           .catch((error) => console.warn(error))
       }
     }
@@ -43,21 +49,7 @@ export default class LoginSpotify extends ViewBase {
       return <Loader text="Getting credentials" />
     }
 
-    const scope = "user-top-read"
-    // const scope = ['playlist-read-private',
-    // 'playlist-read-collaborative',
-    // 'playlist-modify-public',
-    // 'playlist-modify-private',
-    // 'user-library-read',
-    // 'user-library-modify',
-    // 'user-read-private',
-    // 'user-read-birthdate',
-    // 'user-read-email',
-    // 'user-follow-read',
-    // 'user-follow-modify',
-    // 'user-top-read'].join(' ')
-    const authURL = SpotifyConnect.getAuthURL(scope)
-    console.log('authurl', authURL)
+    const authURL = SpotifyConnect.getAuthURL()
     const WEBVIEW_REF = 'webview'
 
     return (

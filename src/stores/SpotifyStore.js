@@ -12,16 +12,29 @@ import MockedRelatedArtists from '../../test/mocks/relatedArtists'
 
 class SpotifyStore {
   constructor() {
+    this.me = {}
     this.artists = []
     this.relatedArtists = []
     this.topTracks = []
+
     // TODO :: Remove
-    // this.artists = MockedArtists
-    // this.relatedArtists = MockedRelatedArtists
+    this.artists = MockedArtists
+    this.relatedArtists = MockedRelatedArtists
+
     this.errorMessage = null
-    this.country = config.spotify.country,
+    this.access_token
 
     this.bindActions(SpotifyActions)
+  }
+  setCredentials(access_token) {
+    this.access_token = access_token
+    console.log('mono1', access_token)
+    SpotifyConnect.fetchCurrentUser()
+      .catch((error) => this.errorMessage = error)
+      .done((data) => {
+        this.me = data
+        return data
+      })
   }
 
   fetchTopArtists() {
@@ -32,6 +45,7 @@ class SpotifyStore {
   }
 
   fetchTopArtistsSuccess(data) {
+    // console.log('finishedTop', JSON.stringify(data.items))
     this.setState({ errorMessage: null, artists: data.items })
     SpotifyActions.discoverArtists()
   }
@@ -100,13 +114,13 @@ class SpotifyStore {
         Promise.all(promises)
           .then((data) => {
             this.discoverArtistsSuccess(data)
-            console.log('finished', JSON.stringify(data))
           })
       })
     return promises
   }
 
   discoverArtistsSuccess(data) {
+    // console.log('discoverArtistsSuccess', JSON.stringify(data))
     this.setState({ errorMessage: null, relatedArtists: data })
   }
 
@@ -117,7 +131,7 @@ class SpotifyStore {
   fetchTopTracks() {
     const promises = []
     this.relatedArtists.forEach((relatedArtist) => {
-      promises.push(SpotifyConnect.fetchArtistTopTracks(relatedArtist.id, this.country))
+      promises.push(SpotifyConnect.fetchArtistTopTracks(relatedArtist.id, this.me.country))
     })
     Promise.all(promises)
       //
@@ -129,7 +143,7 @@ class SpotifyStore {
         return topTracks
       })
       .then((data) => {
-        console.log('finished', JSON.stringify(data))
+        // console.log('finished', JSON.stringify(data))
         this.fetchTopTracksSuccess(data)
       })
   }

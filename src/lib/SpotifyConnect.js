@@ -3,6 +3,7 @@ import { Buffer } from 'buffer'
 const urls = {
   authorize: 'https://accounts.spotify.com/authorize',
   token: 'https://accounts.spotify.com/api/token',
+  currentUser: 'https://api.spotify.com/v1/me',
   artistsTop: 'https://api.spotify.com/v1/me/top/artists',
   artist: 'https://api.spotify.com/v1/artists/{id}',
   artistsRelated: 'https://api.spotify.com/v1/artists/{id}/related-artists',
@@ -106,7 +107,15 @@ class SpotifyConnect {
     })
   }
 
-  getAuthURL(scope) {
+  fetchCurrentUser() {
+    return this._fetch(urls.currentUser, {
+      method: 'GET',
+      headers: this._getAccessTokenHeader(),
+    })
+  }
+
+  getAuthURL() {
+    const scope = "user-top-read user-read-private"
     const params = {
       client_id: this.clientId,
       response_type: 'code',

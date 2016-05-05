@@ -3,6 +3,7 @@ import alt from '../alt'
 class SpotifyActions {
   constructor() {
     this.generateActions(
+      'setCredentials',
       'fetchTopArtists',
       'fetchTopArtistsSuccess',
       'fetchTopArtistsFailed',

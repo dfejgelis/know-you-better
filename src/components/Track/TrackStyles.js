@@ -5,23 +5,29 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: 'row',
     justifyContent: 'center',
-    padding: 5,
-    margin: 10,
-    width: 100,
-    height: 120,
-    backgroundColor: '#F6F6F6',
     alignItems: 'center',
-    borderWidth: 1,
-    borderRadius: 5,
+    // margin: 10,
+    // width: 100,
+    height: 50,
+    // backgroundColor: '#F6F6F6',
+    borderBottomWidth: 1,
+    // borderRadius: 5,
     borderColor: '#CCC',
   },
   image: {
-    width: 80,
-    height: 80,
+    width: 50,
+    height: 50,
+  },
+  rightContainer: {
+    flex: 1,
+    padding: 10,
   },
   name: {
     fontSize: 8,
     marginTop: 5,
+    // textAlign: 'center',
   },
 })

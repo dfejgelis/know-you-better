@@ -1,0 +1,5 @@
+{
+  "name": "CreatePlaylist",
+  "private": true,
+  "main": "./CreatePlaylist.js"
+}

@@ -5,8 +5,8 @@ import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
   list: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    // justifyContent: 'center',
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
   },
 })

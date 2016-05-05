@@ -31,7 +31,6 @@ class ArtistList extends React.Component {
 }
 ArtistList.propTypes = {
   artists: React.PropTypes.arrayOf(React.PropTypes.shape(ArtistModel.propTypes)).isRequired,
-  onTapCreatePlaylist: React.PropTypes.func.isRequired,
 }
 
 export default ArtistList

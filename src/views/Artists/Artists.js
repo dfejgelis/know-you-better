@@ -9,7 +9,6 @@ import styles from './ArtistsStyles'
 import SpotifyStore from '../../stores/SpotifyStore'
 import SpotifyActions from '../../actions/SpotifyActions'
 import ArtistList from '../../components/ArtistList'
-import TrackList from '../../components/TrackList'
 import Button from '../../components/Button'
 import Loader from '../../components/Loader'
 
@@ -20,24 +19,22 @@ export default class Artists extends ViewBase {
     this.state = {
       artists: [],
       relatedArtists: [],
-      topTracks: [],
       errorMessage: null,
     }
   }
 
-  _createPlaylist() {
+  _buildPlaylist() {
     // Go check it out
     this.props.navigator.push({
-      id: 'playlist',
-      title: 'Awesome playlist',
+      id: 'createPlaylist',
+      title: 'Create awesome playlist',
     })
   }
 
   componentDidMount() {
     SpotifyStore.listen(this.onChange.bind(this))
 
-    // TODO :: Uncomment
-    this._fetchArtists()
+    SpotifyActions.fetchTopArtists()
     // this.onChange()
   }
 
@@ -52,16 +49,7 @@ export default class Artists extends ViewBase {
       errorMessage: state.errorMessage,
       artists: state.artists,
       relatedArtists: state.relatedArtists,
-      topTracks: state.topTracks,
     })
-  }
-
-  _fetchArtists() {
-    SpotifyActions.fetchTopArtists()
-  }
-
-  _discoverArtists() {
-    SpotifyActions.discoverArtists(this.artists)
   }
 
   render() {
@@ -77,18 +65,9 @@ export default class Artists extends ViewBase {
     return (
       <React.View style={styles.container}>
         <React.Text style={styles.title}>These are you top related artists</React.Text>
-        <ArtistList
-          artists={this.state.relatedArtists}
-          onTapCreatePlaylist={this._createPlaylist.bind(this)}
-          />
-        <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
-        <TrackList tracks={this.state.topTracks}></TrackList>
+        <ArtistList artists={this.state.relatedArtists} />
+        <Button text="Discover Playlist" onPress={this._buildPlaylist.bind(this)}></Button>
       </React.View>
     )
   }
 }
-//
-// {!this.state.topTracks
-//   ? <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
-//   : <TrackList tracks={this.state.topTracks}></TrackList>
-// }

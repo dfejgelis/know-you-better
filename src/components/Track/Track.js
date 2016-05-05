@@ -1,4 +1,8 @@
-import React from 'react-native'
+import React, {
+  View,
+  Image,
+  Text,
+} from 'react-native'
 import TrackModel from '../../models/Track'
 import styles from './TrackStyles'
 
@@ -9,13 +13,16 @@ class Track extends React.Component {
     const artist = this.props.artists[0]
 
     return (
-      <React.View style={styles.container}>
-        <React.Image
+      <View style={styles.container}>
+        <Image
           source={{uri: image.url}}
           style={styles.image}
           />
-        <React.Text style={styles.name}>{artist.name}-{this.props.name}</React.Text>
-      </React.View>
+        <View style={styles.rightContainer}>
+          <Text style={styles.artist}>{artist.name}</Text>
+          <Text style={styles.name}>{this.props.name}</Text>
+        </View>
+      </View>
     )
   }
 }
