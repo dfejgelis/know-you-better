@@ -1,0 +1,5 @@
+{
+  "name": "Artists",
+  "private": true,
+  "main": "./Artists.js"
+}

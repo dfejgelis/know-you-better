@@ -5,7 +5,7 @@ import React, {
   View,
 } from 'react-native'
 import ViewBase from '../ViewBase'
-import styles from './HomeStyles'
+import styles from './ArtistsStyles'
 import SpotifyStore from '../../stores/SpotifyStore'
 import SpotifyActions from '../../actions/SpotifyActions'
 import ArtistList from '../../components/ArtistList'
@@ -14,7 +14,7 @@ import Button from '../../components/Button'
 import Loader from '../../components/Loader'
 
 
-export default class Home extends ViewBase {
+export default class Artists extends ViewBase {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,18 +26,19 @@ export default class Home extends ViewBase {
   }
 
   _createPlaylist() {
-    // Create playlist
-    SpotifyActions.fetchTopTracks()
     // Go check it out
     this.props.navigator.push({
       id: 'playlist',
-      title: 'This is your awesome playlist',
+      title: 'Awesome playlist',
     })
   }
 
   componentDidMount() {
-    this._fetchArtists()
     SpotifyStore.listen(this.onChange.bind(this))
+
+    // TODO :: Uncomment
+    this._fetchArtists()
+    // this.onChange()
   }
 
   componentWillUnmount() {
@@ -46,6 +47,7 @@ export default class Home extends ViewBase {
 
   onChange() {
     const state = SpotifyStore.getState()
+    console.debug('changed state', state)
     this.setState({
       errorMessage: state.errorMessage,
       artists: state.artists,
@@ -85,7 +87,7 @@ export default class Home extends ViewBase {
     )
   }
 }
-// 
+//
 // {!this.state.topTracks
 //   ? <Button text="Create Playlist" onPress={this._createPlaylist}></Button>
 //   : <TrackList tracks={this.state.topTracks}></TrackList>

@@ -1,7 +1,7 @@
 'use strict'
 
 import React from 'react-native'
-import HomeView from '../views/Home'
+import ArtistsView from '../views/Artists'
 import WelcomeView from '../views/Welcome'
 import LoginSpotifyView from '../views/LoginSpotify'
 
@@ -12,8 +12,8 @@ export default function renderScene(route, navigator) {
         return (<WelcomeView navigator={navigator} {...route.data} />)
       case 'loginSpotify':
         return (<LoginSpotifyView navigator={navigator} {...route.data} />)
-      case 'home':
-        return (<HomeView navigator={navigator} />)
+      case 'artists':
+        return (<ArtistsView navigator={navigator} />)
       default:
         return (
           <React.Text style={{fontSize: 40, color: 'red'}}>

@@ -12,7 +12,9 @@ import MockedRelatedArtists from '../../test/mocks/relatedArtists'
 
 class SpotifyStore {
   constructor() {
-    this.artists, this.relatedArtists, this.topTracks = [], [], []
+    this.artists = []
+    this.relatedArtists = []
+    this.topTracks = []
     // TODO :: Remove
     // this.artists = MockedArtists
     // this.relatedArtists = MockedRelatedArtists

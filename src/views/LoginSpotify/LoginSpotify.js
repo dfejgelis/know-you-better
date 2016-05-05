@@ -18,8 +18,8 @@ export default class LoginSpotify extends ViewBase {
   }
   _LoginSpotifySuccess() {
     this.props.navigator.replace({
-      id: 'home',
-      title: 'Welcome!',
+      id: 'artists',
+      title: 'Artists',
     })
   }
   onNavigationStateChange(navState) {
