@@ -8,16 +8,15 @@ export default StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'black',
   },
   header: {
     fontSize: 20,
     textAlign: 'center',
-    color: 'white',
     margin: 10,
   },
   bullets: {
-    color: 'white',
+    // flex:1,
+    // color: 'white',
   },
   loginButton: {
     backgroundColor: 'blue',

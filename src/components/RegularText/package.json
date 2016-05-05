@@ -1,0 +1,5 @@
+{
+  "name": "RegularText",
+  "private": true,
+  "main": "./RegularText.js"
+}

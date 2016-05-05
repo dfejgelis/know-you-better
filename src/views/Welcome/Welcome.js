@@ -2,6 +2,7 @@
 
 import React from 'react-native'
 import ViewBase from '../ViewBase'
+import RegularText from '../../components/RegularText'
 
 import styles from './WelcomeStyles'
 
@@ -18,11 +19,10 @@ export default class Home extends ViewBase {
     return (
       <React.View style={styles.container}>
         <React.Text style={styles.header}>CREATE THE MOST AWESOME PLAYLIST based on your Spotify information.</React.Text>
-        <React.Text style={styles.bullets}>
-          <React.Text>* Login</React.Text>
-          <React.Text>* We'll find the best new artists for you (customizable)</React.Text>
-          <React.Text>* That's it! Now you have a new playlist with your best new artists top tracks!</React.Text>
-        </React.Text>
+        <RegularText text="1- Login" />
+        <RegularText text="2- Discover the artists you should hear" />
+        <RegularText text="3- Create a playlist with a couple of top tracks" />
+        <RegularText text="4- Listen to youru most amazing new discovery playlist" />
         <React.TouchableHighlight
             style={styles.loginButton}
             onPress={this._onPressSpotifyLogin.bind(this)}>
