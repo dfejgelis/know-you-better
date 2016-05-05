@@ -6,6 +6,7 @@ import SpotifyConnect from '../../lib/SpotifyConnect'
 import styles from './LoginSpotifyStyles'
 import config from '../../../config'
 import ViewBase from '../ViewBase'
+import Loader from '../../components/Loader'
 
 
 export default class LoginSpotify extends ViewBase {
@@ -39,7 +40,7 @@ export default class LoginSpotify extends ViewBase {
   }
   render() {
     if (this.state.loading) {
-      return <React.Text>Loading</React.Text>
+      return <Loader text="Getting credentials" />
     }
 
     const scope = "user-top-read"
