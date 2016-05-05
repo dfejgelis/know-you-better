@@ -11,6 +11,7 @@ import SpotifyActions from '../../actions/SpotifyActions'
 import ArtistList from '../../components/ArtistList'
 import TrackList from '../../components/TrackList'
 import Button from '../../components/Button'
+import Loader from '../../components/Loader'
 
 
 export default class Home extends ViewBase {
@@ -61,24 +62,15 @@ export default class Home extends ViewBase {
     SpotifyActions.discoverArtists(this.artists)
   }
 
-  _renderLoader(text) {
-    return (
-        <React.View style={styles.loadingContainer}>
-          <React.Text style={styles.loadingText}>{text}</React.Text>
-          <React.ActivityIndicatorIOS style={styles.loader}/>
-        </React.View>
-    )
-  }
-
   render() {
     if (this.state.errorMessage) {
       console.warn(this.state.errorMessage)
     }
     if (!this.state.artists.length) {
-      return this._renderLoader('Checking your top artists')
+      return <Loader text='Checking your top artists' />
     }
     if (!this.state.relatedArtists.length) {
-      return this._renderLoader('Discovering new artists')
+      return <Loader text='Discovering new artists' />
     }
     return (
       <React.View style={styles.container}>
