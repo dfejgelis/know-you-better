@@ -13,6 +13,7 @@ export default StyleSheet.create({
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
+    marginTop: 50,
   },
   bullets: {
     // flex:1,
@@ -29,5 +30,9 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: 'white',
     marginBottom: 5,
+  },
+  logo: {
+    width: 300,
+    height: 210,
   },
 })

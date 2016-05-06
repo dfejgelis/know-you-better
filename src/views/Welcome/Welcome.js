@@ -18,6 +18,7 @@ export default class Home extends ViewBase {
   render() {
     return (
       <React.View style={styles.container}>
+        <React.Image source={require('../../assets/img/logo.jpg')} style={styles.logo}/>
         <React.Text style={styles.header}>CREATE THE MOST AWESOME PLAYLIST based on your Spotify information.</React.Text>
         <RegularText text="1- Login" />
         <RegularText text="2- Discover the artists you should hear" />
