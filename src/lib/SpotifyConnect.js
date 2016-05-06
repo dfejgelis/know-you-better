@@ -8,6 +8,8 @@ const urls = {
   artist: 'https://api.spotify.com/v1/artists/{id}',
   artistsRelated: 'https://api.spotify.com/v1/artists/{id}/related-artists',
   artistsTopTracks: 'https://api.spotify.com/v1/artists/{id}/top-tracks',
+  playlist: 'https://api.spotify.com/v1/users/{user_id}/playlists',
+  playlistAddTracks: 'https://api.spotify.com/v1/users/{user_id}/playlists/{playlist_id}/tracks',
 }
 
 
@@ -114,8 +116,38 @@ class SpotifyConnect {
     })
   }
 
+  createPlaylist(name, userId) {
+    const headers = this._getAccessTokenHeader()
+    headers['Content-Type'] = 'application/json'
+
+    const url = urls.playlist.replace('{user_id}', userId)
+    const options = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ name: name, public: false }),
+    }
+
+    // console.log(url, options)
+    return this._fetch(url, options)
+  }
+
+  addTracksToPlaylist(userId, playlistId, trackURIs) {
+    const headers = this._getAccessTokenHeader()
+    headers['Content-Type'] = 'application/json'
+
+    const url = urls.playlistAddTracks.replace('{user_id}', userId).replace('{playlist_id}', playlistId)
+    const options = {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({ uris: trackURIs }),
+    }
+
+    console.log(url, options)
+    return this._fetch(url, options)
+  }
+
   getAuthURL() {
-    const scope = "user-top-read user-read-private"
+    const scope = "user-top-read user-read-private playlist-modify-private"
     const params = {
       client_id: this.clientId,
       response_type: 'code',

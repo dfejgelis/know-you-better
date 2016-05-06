@@ -16,12 +16,13 @@ export default class CreatePlaylist extends ViewBase {
     this.state = {
       topTracks: [],
       errorMessage: null,
+      playlist: null,
     }
   }
 
   _createPlaylist() {
     // Get current user owner
-    SpotifyConnect.createPlaylist("My awesome playlist", this.state.topTracks)
+    SpotifyActions.createPlaylist("My awesome playlist", this.state.topTracks)
   }
 
   componentDidMount() {
@@ -39,6 +40,7 @@ export default class CreatePlaylist extends ViewBase {
     this.setState({
       errorMessage: state.errorMessage,
       topTracks: state.topTracks,
+      playlist: state.playlist,
     })
   }
 
@@ -51,8 +53,8 @@ export default class CreatePlaylist extends ViewBase {
     }
     return (
       <React.ScrollView style={styles.container}>
-        <TrackList tracks={this.state.topTracks}></TrackList>
         <Button text="Create Playlist" onPress={this._createPlaylist.bind(this)}></Button>
+        <TrackList tracks={this.state.topTracks}></TrackList>
       </React.ScrollView>
     )
   }

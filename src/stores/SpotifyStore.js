@@ -2,9 +2,10 @@ import alt from '../alt'
 
 import SpotifyActions from '../actions/SpotifyActions'
 import SpotifyConnect from '../lib/SpotifyConnect'
-import config from '../../config'
 import MockedArtists from '../../test/mocks/topArtists'
 import MockedRelatedArtists from '../../test/mocks/relatedArtists'
+import MockedTopTracks from '../../test/mocks/topTracks'
+import MockedPlaylist from '../../test/mocks/playlist'
 
 // TODO: Remove
 // const accessToken = 'BQBohXI2YpdQ0Gpsq3lNYutVgzCo17Ukb880gXIR2gBRdZ4x_-KxjzvH9yX06oXGe4L1REeg3IOIrDbtcrrKFH9SZOBm26qJdq8VBwHULtZZvFArg2UTGQ-trWop9jZryaYjCjWvh7On8Fy36ZSNcQnv4NiLr1hRmwCv_6waiBQszvKZcqLRJAoZbUiTg75QFaHRTuHwPQa42AXCAiB7fmGw3yRDlaVQ9U_2XuoW5LtNQ2ko5e9gSUEvuI-3xwALovDuE9rfeb4yLbxYJh7Enpgv2H8HqeUeiJosSHqeEiWPd0UPMb7QttCc'
@@ -16,10 +17,13 @@ class SpotifyStore {
     this.artists = []
     this.relatedArtists = []
     this.topTracks = []
+    this.playlist = null
 
     // TODO :: Remove
     this.artists = MockedArtists
     this.relatedArtists = MockedRelatedArtists
+    this.topTracks = MockedTopTracks
+    this.playlist = MockedPlaylist
 
     this.errorMessage = null
     this.access_token
@@ -28,7 +32,6 @@ class SpotifyStore {
   }
   setCredentials(access_token) {
     this.access_token = access_token
-    console.log('mono1', access_token)
     SpotifyConnect.fetchCurrentUser()
       .catch((error) => this.errorMessage = error)
       .done((data) => {
@@ -143,16 +146,46 @@ class SpotifyStore {
         return topTracks
       })
       .then((data) => {
-        // console.log('finished', JSON.stringify(data))
         this.fetchTopTracksSuccess(data)
       })
   }
 
   fetchTopTracksSuccess(data) {
+    // console.log('tomock', JSON.stringify(data))
     this.setState({ errorMessage: null, topTracks: data })
   }
 
   fetchTopTracksFailed(error) {
+    this.setState({ errorMessage: error })
+  }
+
+  createPlaylist(options) {
+    const name = options[0]
+    const tracks = options[1]
+
+    // SpotifyConnect.createPlaylist(name, this.me.id)
+    //   .catch((error) => this.errorMessage = error)
+    //   .then((playlist) => {
+    //     this.playlist = playlist
+    //   })
+
+    const tracksURIs = tracks.map((track) => track.uri)
+
+    SpotifyConnect.addTracksToPlaylist(this.me.id, this.playlist.id, tracksURIs)
+      .catch((error) => this.errorMessage = error)
+      .then((res) => {
+        console.log('res', res)
+        this.createPlaylistSuccess(tracks)
+      })
+  }
+
+  createPlaylistSuccess(data) {
+    const playlist = this.state.playlist
+    playlist.tracks.items = data
+    this.setState({ errorMessage: null, playlist: playlist })
+  }
+
+  createPlaylistFailed(error) {
     this.setState({ errorMessage: error })
   }
 
