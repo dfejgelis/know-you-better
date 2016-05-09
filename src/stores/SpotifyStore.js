@@ -171,12 +171,13 @@ class SpotifyStore {
       })
   }
 
+  _addTracksToPlaylist(tracks) {
     const tracksURIs = tracks.map((track) => track.uri)
 
     SpotifyConnect.addTracksToPlaylist(this.me.id, this.playlist.id, tracksURIs)
       .catch((error) => this.errorMessage = error)
       .then((res) => {
-        console.log('res', res)
+        console.log('Playlist Created', res)
         this.createPlaylistSuccess(tracks)
       })
   }

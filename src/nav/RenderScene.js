@@ -5,6 +5,7 @@ import ArtistsView from '../views/Artists'
 import CreatePlaylistView from '../views/CreatePlaylist'
 import WelcomeView from '../views/Welcome'
 import LoginSpotifyView from '../views/LoginSpotify'
+import EnjoyPlaylistView from '../views/EnjoyPlaylist'
 
 
 export default function renderScene(route, navigator) {
@@ -14,9 +15,11 @@ export default function renderScene(route, navigator) {
       case 'loginSpotify':
         return (<LoginSpotifyView navigator={navigator} {...route.data} />)
       case 'artists':
-        return (<ArtistsView navigator={navigator} />)
+        return (<ArtistsView navigator={navigator} {...route.data} />)
+      case 'enjoyPlaylist':
+        return (<EnjoyPlaylistView navigator={navigator} {...route.data} />)
       case 'createPlaylist':
-        return (<CreatePlaylistView navigator={navigator} />)
+        return (<CreatePlaylistView navigator={navigator} {...route.data} />)
       default:
         return (
           <React.Text style={{fontSize: 40, color: 'red'}}>
