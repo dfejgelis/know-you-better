@@ -5,13 +5,13 @@ import styles from './SpotifyButtonStyles'
 
 class SpotifyButton extends React.Component {
   _onPress() {
-    this.props.onPress()
+    console.warn('TODO! ;)')
   }
   render() {
     return (
       <React.TouchableHighlight
           style={styles.container}
-          onPress={this._onPress.bind(this)}>
+          onPress={() => this._onPress()}>
         <React.Text style={styles.text}>{this.props.text}</React.Text>
       </React.TouchableHighlight>
     )
@@ -19,7 +19,7 @@ class SpotifyButton extends React.Component {
 }
 SpotifyButton.propTypes = {
   text: React.PropTypes.string.isRequired,
-  onPress: React.PropTypes.func.isRequired,
+  uri: React.PropTypes.string,
 }
 
 export default SpotifyButton

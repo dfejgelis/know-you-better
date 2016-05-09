@@ -18,17 +18,14 @@ export default class CreatePlaylist extends ViewBase {
       topTracks: [],
       errorMessage: null,
       created: false,
-      playlistName: "My awesome playlist",
+      playlistName: "Mindblowing!",
+      playlist: null,
     }
   }
 
   _createPlaylist() {
+    SpotifyActions.createPlaylist(this.state.playlistName, SpotifyStore.getState().topTracks)
     this.setState({created: true})
-    // Get current user owner
-    // this.props.navigator.push({
-    //   id: 'enjoyPlaylist',
-    //   title: 'Enjoy your awesome playlist',
-    // })
   }
 
   componentDidMount() {
@@ -47,6 +44,7 @@ export default class CreatePlaylist extends ViewBase {
     this.setState({
       errorMessage: state.errorMessage,
       topTracks: state.topTracks,
+      playlist: state.playlist,
     })
   }
 
@@ -55,19 +53,20 @@ export default class CreatePlaylist extends ViewBase {
       <React.View>
         <React.TextInput
           style={styles.inputText}
-          onChange={(text) => this.setState({ playlistName: text })}
+          onChangeText={(text) => this.setState({ playlistName: text })}
           value={this.state.playlistName}
           />
-        <Button text="Create Playlist" onPress={this._createPlaylist.bind(this)}></Button>
+        <Button text="Create Playlist" onPress={() => this._createPlaylist()}></Button>
       </React.View>
     )
   }
 
   _renderSpotifyButton() {
-    // uri={this.state.playlist.uri}
+    const uri = (this.state.playlist ? this.state.playlist.uri : '')
     return (
       <SpotifyButton
         text="Open in Spotify"
+        uri={uri}
         />
     )
   }

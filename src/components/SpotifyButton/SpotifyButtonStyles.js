@@ -10,8 +10,7 @@ export default StyleSheet.create({
     marginBottom: 40,
     backgroundColor: "rgb(83, 251, 155)",
     borderWidth: 1,
-    borderColor: "#999",
-    color: "#999",
+    borderColor: "#666",
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 40,
@@ -19,6 +18,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-
+    color: "#333",
   },
 })
