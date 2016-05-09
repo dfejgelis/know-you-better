@@ -27,7 +27,7 @@ export default class Artists extends ViewBase {
     // Go check it out
     this.props.navigator.push({
       id: 'createPlaylist',
-      title: 'Create awesome playlist',
+      title: 'Playlist',
     })
   }
 
@@ -64,7 +64,7 @@ export default class Artists extends ViewBase {
     }
     return (
       <React.View style={styles.container}>
-        <React.Text style={styles.title}>These are you top related artists</React.Text>
+        <React.Text style={styles.title}>You should check out these artists</React.Text>
         <ArtistList artists={this.state.relatedArtists} />
         <Button text="Discover Playlist" onPress={this._buildPlaylist.bind(this)}></Button>
       </React.View>

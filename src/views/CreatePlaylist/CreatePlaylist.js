@@ -9,6 +9,7 @@ import TrackList from '../../components/TrackList'
 import Button from '../../components/Button'
 import Loader from '../../components/Loader'
 import SpotifyButton from '../../components/SpotifyButton'
+import config from '../../../config'
 
 
 export default class CreatePlaylist extends ViewBase {
@@ -18,7 +19,7 @@ export default class CreatePlaylist extends ViewBase {
       topTracks: [],
       errorMessage: null,
       created: false,
-      playlistName: "Mindblowing!",
+      playlistName: config.spotify.playlistNameDefault,
       playlist: null,
     }
   }
