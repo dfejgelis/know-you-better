@@ -1,7 +1,8 @@
 const config = {
   initialRoute: {
     id: 'welcome',
-    title: 'We know you better than you do',
+    // id: 'loginSpotify',
+    title: 'For you!',
   },
   spotify: {
     clientId: '5f8143a295f04c2c99eee060120bb98d',

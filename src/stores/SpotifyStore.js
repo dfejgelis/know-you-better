@@ -20,10 +20,10 @@ class SpotifyStore {
     this.playlist = null
 
     // TODO :: Remove
-    this.artists = MockedArtists
-    this.relatedArtists = MockedRelatedArtists
-    this.topTracks = MockedTopTracks
-    this.playlist = MockedPlaylist
+    // this.artists = MockedArtists
+    // this.relatedArtists = MockedRelatedArtists
+    // this.topTracks = MockedTopTracks
+    // this.playlist = MockedPlaylist
 
     this.errorMessage = null
     this.access_token
@@ -163,11 +163,13 @@ class SpotifyStore {
     const name = options[0]
     const tracks = options[1]
 
-    // SpotifyConnect.createPlaylist(name, this.me.id)
-    //   .catch((error) => this.errorMessage = error)
-    //   .then((playlist) => {
-    //     this.playlist = playlist
-    //   })
+    SpotifyConnect.createPlaylist(name, this.me.id)
+      .catch((error) => this.createPlaylistFailed(error))
+      .then((playlist) => {
+        this.playlist = playlist
+        this._addTracksToPlaylist(tracks)
+      })
+  }
 
     const tracksURIs = tracks.map((track) => track.uri)
 
@@ -180,7 +182,7 @@ class SpotifyStore {
   }
 
   createPlaylistSuccess(data) {
-    const playlist = this.state.playlist
+    const playlist = this.playlist
     playlist.tracks.items = data
     this.setState({ errorMessage: null, playlist: playlist })
   }

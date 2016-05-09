@@ -16,18 +16,21 @@ export default class CreatePlaylist extends ViewBase {
     this.state = {
       topTracks: [],
       errorMessage: null,
-      playlist: null,
     }
   }
 
   _createPlaylist() {
     // Get current user owner
-    SpotifyActions.createPlaylist("My awesome playlist", this.state.topTracks)
+    this.props.navigator.push({
+      id: 'enjoyPlaylist',
+      title: 'Enjoy your awesome playlist',
+    })
   }
 
   componentDidMount() {
     SpotifyStore.listen(this.onChange.bind(this))
     SpotifyActions.fetchTopTracks()
+    // this.onChange()
   }
 
   componentWillUnmount() {
@@ -40,7 +43,6 @@ export default class CreatePlaylist extends ViewBase {
     this.setState({
       errorMessage: state.errorMessage,
       topTracks: state.topTracks,
-      playlist: state.playlist,
     })
   }
 
