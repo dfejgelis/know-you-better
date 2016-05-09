@@ -8,6 +8,7 @@ import SpotifyActions from '../../actions/SpotifyActions'
 import TrackList from '../../components/TrackList'
 import Button from '../../components/Button'
 import Loader from '../../components/Loader'
+import SpotifyButton from '../../components/SpotifyButton'
 
 
 export default class CreatePlaylist extends ViewBase {
@@ -16,15 +17,18 @@ export default class CreatePlaylist extends ViewBase {
     this.state = {
       topTracks: [],
       errorMessage: null,
+      created: false,
+      playlistName: "My awesome playlist",
     }
   }
 
   _createPlaylist() {
+    this.setState({created: true})
     // Get current user owner
-    this.props.navigator.push({
-      id: 'enjoyPlaylist',
-      title: 'Enjoy your awesome playlist',
-    })
+    // this.props.navigator.push({
+    //   id: 'enjoyPlaylist',
+    //   title: 'Enjoy your awesome playlist',
+    // })
   }
 
   componentDidMount() {
@@ -46,6 +50,28 @@ export default class CreatePlaylist extends ViewBase {
     })
   }
 
+  _renderForm() {
+    return (
+      <React.View>
+        <React.TextInput
+          style={styles.inputText}
+          onChange={(text) => this.setState({ playlistName: text })}
+          value={this.state.playlistName}
+          />
+        <Button text="Create Playlist" onPress={this._createPlaylist.bind(this)}></Button>
+      </React.View>
+    )
+  }
+
+  _renderSpotifyButton() {
+    // uri={this.state.playlist.uri}
+    return (
+      <SpotifyButton
+        text="Open in Spotify"
+        />
+    )
+  }
+
   render() {
     if (this.state.errorMessage) {
       console.warn(this.state.errorMessage)
@@ -55,7 +81,10 @@ export default class CreatePlaylist extends ViewBase {
     }
     return (
       <React.ScrollView style={styles.container}>
-        <Button text="Create Playlist" onPress={this._createPlaylist.bind(this)}></Button>
+        {!this.state.created
+          ? this._renderForm()
+          : this._renderSpotifyButton()
+        }
         <TrackList tracks={this.state.topTracks}></TrackList>
       </React.ScrollView>
     )
