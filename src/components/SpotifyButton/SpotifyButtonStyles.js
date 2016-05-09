@@ -8,9 +8,10 @@ export default StyleSheet.create({
     flex: 1,
     marginTop: 20,
     marginBottom: 40,
-    backgroundColor: "rgb(53, 78, 218)",
+    backgroundColor: "rgb(83, 251, 155)",
     borderWidth: 1,
-    borderColor: "#EEE",
+    borderColor: "#999",
+    color: "#999",
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 40,
@@ -18,6 +19,6 @@ export default StyleSheet.create({
     alignSelf: 'center',
   },
   text: {
-    color: "#EEE",
+
   },
 })
