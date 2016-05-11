@@ -50,7 +50,7 @@ class SpotifyConnect {
     return this._fetch(urls.token, fetchOptions)
       .then((data) => {
         this.setAccessData(data)
-        console.debug('accessToken', data)
+        // console.debug('accessToken', data)
         return data
       })
   }
@@ -62,7 +62,7 @@ class SpotifyConnect {
   }
 
   _fetch(url, options) {
-    console.debug('Fetching url', url)
+    // console.debug('Fetching url', url)
     return fetch(url, options)
       .then((response) => {
         if (!response.ok) {

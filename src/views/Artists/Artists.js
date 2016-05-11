@@ -44,7 +44,7 @@ export default class Artists extends ViewBase {
 
   onChange() {
     const state = SpotifyStore.getState()
-    console.debug('changed state', state)
+    // console.debug('changed state', state)
     this.setState({
       errorMessage: state.errorMessage,
       artists: state.artists,

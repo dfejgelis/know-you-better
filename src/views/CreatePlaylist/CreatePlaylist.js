@@ -41,7 +41,7 @@ export default class CreatePlaylist extends ViewBase {
 
   onChange() {
     const state = SpotifyStore.getState()
-    console.debug('changed state', state)
+    // console.debug('changed state', state)
     this.setState({
       errorMessage: state.errorMessage,
       topTracks: state.topTracks,
